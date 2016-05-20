@@ -10,3 +10,12 @@ h1 {
 #app {
   text-align: center;
 }
+
+pre {
+  text-align: left;
+  background-color: #eee;
+  border-radius: 3px;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 20px;
+}
