@@ -1,45 +1,43 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 
-import Things from '../shared/things'
+import Things, { specialId } from '../shared/things'
 
 let SimpleComponent = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    things: React.PropTypes.array.isRequired,
+    // things: React.PropTypes.array.isRequired,
+    clicks: React.PropTypes.number.isRequired,
   },
 
-  getInitialState() {
-    return {
-      clicks: 0,
-    }
-  },
+  // getInitialState() {
+  //   return {
+  //     clicks: 0,
+  //   }
+  // },
 
   onClick() {
-    this.setState({
-      clicks: this.state.clicks + 1,
-    })
+    Things.update({ _id: specialId }, { clicks: this.props.clicks + 1 })
   },
 
   render() {
     return (
       <div>
         <h1>Hello {this.props.name}</h1>
-        <h2>You've clicked the button {this.state.clicks} times</h2>
+        <h2>You've clicked the button {this.props.clicks} times</h2>
         <button onClick={this.onClick}>Button</button>
-        {this.props.things.map(thing => (
-          <pre key={thing._id}>
-            {JSON.stringify(thing, null, 2)}
-          </pre>
-        ))}
       </div>
     )
   },
 })
 
-let ComponentWithData = createContainer(({ params }) => {
+let ComponentWithData = createContainer(() => {
+  // Only possible to do `fineOne` and get the same one because we're working
+  // under the assumption that there's only 1 document in the database
+  let thing = Things.findOne()
+
   return {
-    things: Things.find().fetch(),
+    clicks: thing === undefined ? -1 : thing.clicks
   }
 }, SimpleComponent)
 

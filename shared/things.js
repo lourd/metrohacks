@@ -9,3 +9,5 @@ if ( Meteor.isClient ) {
 }
 
 export default Things
+
+export let specialId = 'ARBITRARY_ID'
