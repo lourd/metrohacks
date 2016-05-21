@@ -17,8 +17,12 @@ let SimpleComponent = React.createClass({
   //   }
   // },
 
-  onClick() {
+  onUp() {
     Things.update({ _id: specialId }, { clicks: this.props.clicks + 1 })
+  },
+
+  onDown() {
+    Things.update({ _id: specialId }, { clicks: this.props.clicks - 1 })
   },
 
   render() {
@@ -26,7 +30,8 @@ let SimpleComponent = React.createClass({
       <div>
         <h1>Hello {this.props.name}</h1>
         <h2>You've clicked the button {this.props.clicks} times</h2>
-        <button onClick={this.onClick}>Button</button>
+        <button onClick={this.onUp}>Up</button>
+        <button onClick={this.onDown}>Down</button>
         <Tone pitch={this.props.clicks / 100}/>
       </div>
     )
