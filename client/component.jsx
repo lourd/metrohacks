@@ -2,6 +2,7 @@ import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 
 import Things, { specialId } from '../shared/things'
+import Tone from './tone'
 
 let SimpleComponent = React.createClass({
   propTypes: {
@@ -26,6 +27,7 @@ let SimpleComponent = React.createClass({
         <h1>Hello {this.props.name}</h1>
         <h2>You've clicked the button {this.props.clicks} times</h2>
         <button onClick={this.onClick}>Button</button>
+        <Tone pitch={this.props.clicks / 100}/>
       </div>
     )
   },
